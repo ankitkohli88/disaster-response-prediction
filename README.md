@@ -30,6 +30,12 @@ Web application screenshots
     `python run.py`
 
 3. Go to http://0.0.0.0:3001/
+4. Verify in the browser: In the terminal, use this command to get the link for vieweing the app:
+```
+env | grep WORK
+```
+The link wil be:
+http://<WORKSPACESPACEID>-3001.<WORKSPACEDOMAIN> replacing WORKSPACEID and WORKSPACEDOMAIN with your values. 
 
 
 Install
@@ -63,7 +69,7 @@ In a terminal navigate to the top-level project directory disaster-response-pred
 python process_data.py disaster_messages.csv disaster_categories.csv DisasterResponse.db
 python train_classifier.py DisasterResponse.db classifier.pkl
 python run.py
-Run the web application Go to http://0.0.0.0:3001/ (if facing problems try http://localhost:3001 in a browser)
+Run the web application Go to http://<WORKSPACESPACEID>-3001.<WORKSPACEDOMAIN>
 
 In the web app you may input any text message (English) and it will categorize it among 36 classes.
 
