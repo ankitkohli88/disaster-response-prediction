@@ -7,6 +7,9 @@ The web app also displays visualizations of the data.
 
 Web application screenshots
 
+![class_distribution](https://github.com/ankitkohli88/disaster-response-prediction/blob/master/screenshots/class_distribution.png?raw=true)
+
+
 
 ### Instructions:
 1. Run the following commands in the project's root directory to set up your database and model.
