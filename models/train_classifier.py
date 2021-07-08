@@ -24,6 +24,18 @@ nltk.download('averaged_perceptron_tagger')
 
 
 def classification_report_df(report,col):
+    '''
+    This method takes the classifcation report and converts it into dataframe 
+    by iterating over it line wise and the split and extract the required features like class, precision,recall,f1_score
+
+    Args:
+    report: classificaton report.
+    col: column for which report exists
+
+    Returns:
+    report dataframe col wise
+    '''
+
     report_data = []
     lines = report.split('\n')
     for line in lines[2:-3]:
@@ -39,6 +51,17 @@ def classification_report_df(report,col):
     return dataframe
 
 def get_classification_report(y_test,y_pred):
+    '''
+    Reports the f1 score, precision and recall for each output category of the dataset. 
+    by iterating through the columns and calling sklearn's classification_report on each.
+
+    Args:
+    y_test: the train  data.
+    y_pred: the train prediction data
+
+    Returns:
+    classification report for each column
+    '''
     report = pd.DataFrame()
 
     for col in y_test.columns:
@@ -55,6 +78,16 @@ def get_classification_report(y_test,y_pred):
     return report
 
 def load_data(database_filepath):
+    '''
+    Loads data from sqllite database and extract the test and train and categories
+
+    Args:
+    database_filepath: the database from where data can be retrieved
+
+    Returns:
+    train data,test data , category_names
+    '''
+
     engine = create_engine('sqlite:///'+database_filepath)
     df = pd.read_sql ('SELECT * FROM message_categories', engine)
     X = df['message']
@@ -63,6 +96,15 @@ def load_data(database_filepath):
     return X,y,category_names
 
 def tokenize(text):
+    '''
+    Tokenize data using word tokenizer , lemmatizer and coverted to lower case
+
+    Args:
+    text: string to be tokenized
+
+    Returns:
+    cleaned tokens
+    '''
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
     
@@ -75,6 +117,17 @@ def tokenize(text):
 
 
 def build_model():
+    '''
+    Build GridSearch Model using Pipeline with steps
+        1. CountVectorizer
+        2. TfIdf Transformer
+        3. MultiOutputClassifier
+
+    Parameters chosen for best performing model
+
+    Returns:
+    ml model
+    '''
     pipeline = Pipeline([
         ('vect',CountVectorizer(tokenizer=tokenize)),
         ('tfidf',TfidfTransformer()),
@@ -91,6 +144,18 @@ def build_model():
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
+    '''
+    This method evaluates the model by generating mean value of f1_score,precisoin,recall for each column
+
+    Args:
+    model: ml model 
+    X_test: input test data
+    Y_test: output test data
+    category_names: category names
+
+    Returns:
+    None
+    '''
     y_pred = model.predict(X_test)
     #converting to a dataframe
     y_pred= pd.DataFrame(y_pred, columns = Y_test.columns)
@@ -99,6 +164,16 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
+    '''
+    Saves model in the working dir
+
+    Args:
+    model: ml model 
+    model_filepath: file path  where to store model
+
+    Returns:
+    None
+    '''
     pickle.dump(model, open(model_filepath, 'wb'))
 
 
