@@ -7,6 +7,13 @@ The web app also displays visualizations of the data.
 
 Web application screenshots
 
+
+![disaster_project](https://github.com/ankitkohli88/disaster-response-prediction/blob/master/screenshots/disaster_project_classify.png?raw=true)
+
+![genre_distribution](https://github.com/ankitkohli88/disaster-response-prediction/blob/master/screenshots/genre_distibution.png?raw=true)
+
+![genre_aid_distribution](https://github.com/ankitkohli88/disaster-response-prediction/blob/master/screenshots/genre_aid_related.png?raw=true)
+
 ![class_distribution](https://github.com/ankitkohli88/disaster-response-prediction/blob/master/screenshots/class_distribution.png?raw=true)
 
 
