@@ -6,6 +6,18 @@ from sqlalchemy import create_engine
 
 
 def load_data(messages_filepath, categories_filepath):
+    '''
+    This method basically merges the two csv files i.e messages & categories after 
+    reading them as dataframe using pandas on key 'id'
+
+    Args:
+    messages_filepath: path of messages csv.
+    categories_filepath: This is a second param.
+
+    Returns:
+    merged dataframe 
+    '''
+
     # load messages dataset
     messages = pd.read_csv(messages_filepath)
     # load categories dataset
@@ -16,6 +28,20 @@ def load_data(messages_filepath, categories_filepath):
 
 
 def clean_data(df):
+    '''
+    This method cleans the merged dataframe
+    1. splits the categories by ';' and expands that to columns converting each value to numeric
+    and then adding it back to the original dataframe
+    2. remove duplicate messages in the dataframe 
+
+    Args:
+    df: merged dataframe.
+
+    Returns:
+    cleaned dataframe
+    '''
+
+
     # create a dataframe of the 36 individual category columns
     categories = df['categories'].str.split(";",expand=True)
     
@@ -49,6 +75,16 @@ def clean_data(df):
     
 
 def save_data(df, database_filename):
+    '''
+    This method saves the dataframe in sqllite database  
+
+    Args:
+    df: merged dataframe.
+    database_filename:database name to store the df
+
+    Returns:
+    None
+    '''
     engine = create_engine('sqlite:///'+database_filename)
     df.to_sql('message_categories', engine, index=False)  
 
