@@ -70,6 +70,9 @@ def clean_data(df):
     
     # drop duplicates
     df = df.drop_duplicates (subset = ['message'])
+
+    #slicing so to get a dataframe that contains only related !=2
+    df = df [df.related !=2]
     
     return df
     
